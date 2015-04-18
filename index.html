@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Storage Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        // Wait for device API libraries to load
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        // device APIs are available
+        function onDeviceReady() {
+            var testData = {"title": "Hello World!"};
+        
+            var testDataString = JSON.stringify(testData);
+
+            window.localStorage.setItem("test", testDataString);
+        }
+    </script>
+  </head>
+  <body>
+      <h1>
+          <script>
+              var testJsonString = window.localStorage.getItem("test");
+              var testJson = JSON.parse(testJsonString);
+              document.write(testJson.title);
+          </script>
+      </h1>
+    <p>localStorage</p>
+  </body>
+</html>
