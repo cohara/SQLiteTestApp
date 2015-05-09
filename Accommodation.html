@@ -53,11 +53,14 @@
 <div id="list"></div>
 <script>
 var ServiceID=QueryString.id;
+// Wait for Cordova to load
+    document.addEventListener("deviceready", onDeviceReady, false);
 
+    // Cordova is ready
+    function onDeviceReady() {
 // Create connection
 var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db"});
 
-    alert("I'm here!");
 
 // Select Data
 var sql="SELECT MGC_Services.ServiceID,MGC_Services.Name,MGC_Services.Logo1,MGC_Services.Ranking,MGC_Services.Display, ServiceClassifications.ServiceIDENTITY, ServiceClassifications.ServiceType\
@@ -77,6 +80,7 @@ db.transaction(function(tx) {
          });
 
 document.getElementById("list").innerHTML=html;
+    }
  
 </script>       
 
