@@ -1,0 +1,71 @@
+body {
+font-family: Raleway, Arial;}
+
+h2 {
+font-size: 100px;
+font-weight: 400;
+margin: 0px 0px 0px 5px;
+color: #666;
+text-shadow: 2px 2px 1px #DDD;}
+
+nav {
+margin: 10px;
+float: left;
+font-size: 32px;
+font-weight: 200;
+padding: 10px;
+border-top: 1px solid #EEE;	
+border-bottom: 1px solid #EEE;}
+	
+nav a {
+text-decoration: none;
+color: #999;
+padding: 10px;
+margin: 0px 20px 0px 0px ;}
+	
+nav a:hover {
+color: #FFF;}
+	
+nav a:hover:nth-child(1) {
+background:#ffc60a;}	
+
+nav a:hover:nth-child(2) {
+background:#d5b692;}
+
+nav a:hover:nth-child(3) {
+background:#394a97;}
+
+nav a:hover:nth-child(4) {
+background:#6f7072;}
+
+img {
+max-width:100%;
+}
+
+#map-canvas {
+width:100%;
+height:250px;
+}
+
+.ui-header.ui-bar-a a {
+	top: auto;
+	bottom: 5px;
+}
+
+@media ( min-width: 40em ) {
+	/* Show the table header rows and set all cells to display: table-cell */
+	.my-custom-breakpoint td,
+	.my-custom-breakpoint th,
+	.my-custom-breakpoint tbody th,
+	.my-custom-breakpoint tbody td,
+	.my-custom-breakpoint thead td,
+	.my-custom-breakpoint thead th {
+		display: table-cell;
+		margin: 0;
+	}
+	/* Hide the labels in each cell */
+	.my-custom-breakpoint td .ui-table-cell-label,
+	.my-custom-breakpoint th .ui-table-cell-label {
+		display: none;
+	}
+}
