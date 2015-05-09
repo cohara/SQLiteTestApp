@@ -57,30 +57,31 @@ var ServiceID=QueryString.id;
     document.addEventListener("deviceready", onDeviceReady, false);
 
     // Cordova is ready
-    function onDeviceReady() {
-// Create connection
-var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db"});
+function onDeviceReady() {
+    // Create connection
+    var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db"});
 
 
-// Select Data
-var sql="SELECT MGC_Services.ServiceID,MGC_Services.Name,MGC_Services.Logo1,MGC_Services.Ranking,MGC_Services.Display, ServiceClassifications.ServiceIDENTITY, ServiceClassifications.ServiceType\
-FROM MGC_Services, ServiceClassifications\
-WHERE MGC_Services.ServiceID = ServiceClassifications.ServiceIDENTITY AND ServiceClassifications.ServiceType IN ('Hotel','Bed & Breakfast','Self Catering')\
-ORDER by Ranking" + ServiceID;
-var html ="";
+    // Select Data
+    var sql="SELECT MGC_Services.ServiceID,MGC_Services.Name,MGC_Services.Logo1,MGC_Services.Ranking,MGC_Services.Display, ServiceClassifications.ServiceIDENTITY, \
+             ServiceClassifications.ServiceType\
+             FROM MGC_Services, ServiceClassifications\
+             WHERE MGC_Services.ServiceID = ServiceClassifications.ServiceIDENTITY AND \
+                   ServiceClassifications.ServiceType IN ('Hotel','Bed & Breakfast','Self Catering')\
+             ORDER by Ranking";
+    var html ="";
 
-db.transaction(function(tx) {
-             tx.executeSql(sql, [], function(tx, res) {
-             console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-            html += "<ul data-role='listview' data-inset='true'><li><a href='http://app.meathgoldcoast.com/ServicesInfo.php?id="
-                     + res.rows.item(0).ServiceID + "'><img src='ServicePics/"
-                     + res.rows.item(0).Logo1 + "'>"
-                     + res.rows.item(0).Name + "</a></li></ul>";
-           });
-         });
+    db.transaction(function(tx) {
+                 tx.executeSql(sql, [], function(tx, res) {
+                 console.log("res.rows.length: " + res.rows.length + " -- should be 1");
+                html += "<ul data-role='listview' data-inset='true'><li><a href='http://app.meathgoldcoast.com/ServicesInfo.php?id="
+                         + res.rows.item(0).ServiceID + "'><img src='ServicePics/"
+                         + res.rows.item(0).Logo1 + "'>"
+                         + res.rows.item(0).Name + "</a></li></ul>";
+               });
+             });
 
-document.getElementById("list").innerHTML=html;
-    }
+}
  
 </script>       
 
