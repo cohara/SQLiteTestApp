@@ -74,12 +74,13 @@ function onDeviceReady() {
     db.transaction(function(tx) {
                  tx.executeSql(sql, [], function(tx, res) {
                  console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-                html += "<ul data-role='listview' data-inset='true'><li><a href='http://app.meathgoldcoast.com/ServicesInfo.php?id="
+                html += "<ul data-role='listview' data-inset='true'><li><a href='ServicesInfo.php?id="
                          + res.rows.item(0).ServiceID + "'><img src='ServicePics/"
                          + res.rows.item(0).Logo1 + "'>"
                          + res.rows.item(0).Name + "</a></li></ul>";
                });
              });
+    document.write(html);
 
 }
  
