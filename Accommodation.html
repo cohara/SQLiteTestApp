@@ -72,16 +72,25 @@ function onDeviceReady() {
     var html ="";
 
     db.transaction(function(tx) {
-                 tx.executeSql(sql, [], function(tx, res) {
-                 console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-                html += "<ul data-role='listview' data-inset='true'><li><a href='ServicesInfo.php?id="
-                         + res.rows.item(0).ServiceID + "'><img src='ServicePics/"
-                         + res.rows.item(0).Logo1 + "'>"
-                         + res.rows.item(0).Name + "</a></li></ul>";
-               });
-             });
-    document.write(html);
+        var accommodations = [];
+        
+        tx.executeSql(sql, [], function(tx, res) {
+            accomodations.push(res.rows.item(0));
+        });
+        
+        if (accommodations.length > 0) {
+            for (var i in accommodations) {
+                var accomodation = accomodations[i];
 
+                document.write("<ul data-role='listview' data-inset='true'><li><a href='ServicesInfo.php?id="
+                                + accomodation.ServiceID + "'><img src='ServicePics/"
+                                + accomodation.Logo1 + "'>"
+                                + accomodation.Name + "</a></li></ul>");
+            }
+        } else {
+            document.write("<h1>No accommodations found!</h1>");
+        }
+    });
 }
  
 </script>       
