@@ -51,7 +51,7 @@
 </ul>
         
 <div id="list"></div>
-<script>
+<script type="text/javascript">
 var ServiceID=QueryString.id;
 // Wait for Cordova to load
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -61,7 +61,6 @@ function onDeviceReady() {
     // Create connection
     var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db"});
 
-
     // Select Data
     var sql="SELECT MGC_Services.ServiceID,MGC_Services.Name,MGC_Services.Logo1,MGC_Services.Ranking,MGC_Services.Display, ServiceClassifications.ServiceIDENTITY, \
              ServiceClassifications.ServiceType\
@@ -69,7 +68,8 @@ function onDeviceReady() {
              WHERE MGC_Services.ServiceID = ServiceClassifications.ServiceIDENTITY AND \
                    ServiceClassifications.ServiceType IN ('Hotel','Bed & Breakfast','Self Catering')\
              ORDER by Ranking";
-    var html ="";
+    
+    document.write(sql);
 
     db.transaction(function(tx) {
         var accommodations = [];
