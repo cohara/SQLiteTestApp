@@ -17,7 +17,7 @@
 
 	<script src="js/jquery.mobile-1.4.0.min.js"></script>
 
-<script src="js/script.js"></script>
+<script src="js/script.js"></script> <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 </head>
 
 <body>
@@ -51,48 +51,31 @@
 </ul>
         
 <div id="list"></div>
-        <h1>Test in progress</h1>
-<script type="text/javascript">
+<script>
 var ServiceID=QueryString.id;
-// Wait for Cordova to load
-    document.addEventListener("deviceready", onDeviceReady, false);
 
-    // Cordova is ready
-function onDeviceReady() {
-    // Create connection
-    var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db"});
+// Create connection
+var db = window.sqlitePlugin.openDatabase({name: "MeathGoldCoast.db", location: 0});
 
-    // Select Data
-    var sql="SELECT MGC_Services.ServiceID,MGC_Services.Name,MGC_Services.Logo1,MGC_Services.Ranking,MGC_Services.Display, ServiceClassifications.ServiceIDENTITY, \
-             ServiceClassifications.ServiceType\
-             FROM MGC_Services, ServiceClassifications\
-             WHERE MGC_Services.ServiceID = ServiceClassifications.ServiceIDENTITY AND \
-                   ServiceClassifications.ServiceType IN ('Hotel','Bed & Breakfast','Self Catering')\
-             ORDER by Ranking";
-    
-    document.write(sql);
 
-    db.transaction(function(tx) {
-        var accommodations = [];
-        
-        tx.executeSql(sql, [], function(tx, res) {
-            accomodations.push(res.rows.item(0));
-        });
-        
-        if (accommodations.length > 0) {
-            for (var i in accommodations) {
-                var accomodation = accomodations[i];
+// Select Data
+var sql="SELECT MGC_Services.ServiceID,MGC_Services.Name,MGC_Services.Logo1,MGC_Services.Ranking,MGC_Services.Display, ServiceClassifications.ServiceIDENTITY, ServiceClassifications.ServiceType\
+FROM MGC_Services, ServiceClassifications\
+WHERE MGC_Services.ServiceID = ServiceClassifications.ServiceIDENTITY AND ServiceClassifications.ServiceType IN ('Hotel','Bed & Breakfast','Self Catering')\
+ORDER by Ranking" + ServiceID;
+var html ="";
 
-                document.write("<ul data-role='listview' data-inset='true'><li><a href='ServicesInfo.php?id="
-                                + accomodation.ServiceID + "'><img src='ServicePics/"
-                                + accomodation.Logo1 + "'>"
-                                + accomodation.Name + "</a></li></ul>");
-            }
-        } else {
-            document.write("<h1>No accommodations found!</h1>");
-        }
-    });
-}
+db.transaction(function(tx) {
+             tx.executeSql(sql, [], function(tx, res) {
+             console.log("res.rows.length: " + res.rows.length + " -- should be 1");
+            html += "<ul data-role='listview' data-inset='true'><li><a href='http://app.meathgoldcoast.com/ServicesInfo.php?id="
+                     + res.rows.item(0).ServiceID + "'><img src='ServicePics/"
+                     + res.rows.item(0).Logo1 + "'>"
+                     + res.rows.item(0).Name + "</a></li></ul>";
+           });
+         });
+
+document.getElementById("list").innerHTML=html;
  
 </script>       
 
